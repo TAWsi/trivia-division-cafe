@@ -30,6 +30,8 @@ html,body{margin:0;height:100%;overflow:hidden;background:#0f3d2e;color:#fff;fon
   var ua = navigator.userAgent;
   var m = ua.match(/Chrome\/(\d+)/);
   var esWV = /; wv\)/.test(ua) || /Version\/\d/.test(ua);
+  var guarda = false;
+  try { localStorage.setItem('diag', '1'); guarda = localStorage.getItem('diag') === '1'; localStorage.removeItem('diag'); } catch (e) { guarda = false; }
   function txt(ok, bien, mal) { return '<b' + (ok ? '' : ' class="no"') + '>' + (ok ? bien : mal) + '</b>'; }
   function datos() {
     var W = document.documentElement.clientWidth, H = window.innerHeight;
@@ -46,6 +48,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#0f3d2e;color:#fff;fon
       'Zoom de página: ' + txt(!vv || Math.abs(vv.scale - 1) < 0.01, vv ? vv.scale.toFixed(2) : 's/d', vv.scale.toFixed(2) + ' (ESTÁ CON ZOOM)') + '<br>' +
       'Letra de 10px mide: ' + txt(letra < 13, letra.toFixed(1) + 'px', letra.toFixed(1) + 'px (LETRA AGRANDADA)') + '<br>' +
       'Escala del recuadro: <b>' + k.toFixed(3) + '</b><br>' +
+      'Guarda datos: ' + txt(guarda, 'SÍ', 'NO (los registros se perderían)') + '<br>' +
       '<span style="font-size:3vw;opacity:.7">' + ua + '</span>';
   }
   datos();

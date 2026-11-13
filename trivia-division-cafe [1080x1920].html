@@ -157,15 +157,16 @@ svg{display:block;overflow:visible}
 @keyframes aparece{from{opacity:0}}
 
 .stage{position:absolute;left:0;top:0;width:100rem;height:177.78rem;overflow:hidden;transform-origin:0 0}
-.screen{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s linear .45s}
+.screen{position:absolute;top:0;right:0;bottom:0;left:0;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s linear .45s}
 .screen.on{opacity:1;visibility:visible;transition:opacity .45s ease}
 
-.logo{aspect-ratio:3.171}
+/* el tótem tiene Chrome 69: medidas y separaciones sin funciones de navegadores nuevos */
+button{-webkit-appearance:none}
 .eyebrow{font-weight:800;font-size:3.4rem;letter-spacing:.16em;text-transform:uppercase}
 
 /* ---------- Patterns: mosaico de ilustraciones (cada tanto una se bambolea) ---------- */
 .band{display:grid;grid-template-columns:repeat(5,1fr);flex:none}
-.t{position:relative;aspect-ratio:1;overflow:hidden;
+.t{position:relative;height:20rem;overflow:hidden;
   --g:var(--verde);--p:var(--rosa);--y:var(--amarillo);--l:var(--lima);--b:var(--beige);--w:var(--blanco)}
 .t svg{width:100%;height:100%}
 .t-verde{background:var(--verde);--g:var(--lima);--b:var(--blanco)}
@@ -179,9 +180,9 @@ svg{display:block;overflow:visible}
 #inicio{background:var(--blanco);cursor:pointer}
 .hero{display:flex;flex-direction:column;align-items:center;padding:6.5rem 0 6.2rem;
   --g:var(--verde);--ld:var(--verde);--lc:var(--rosa);--la:var(--lima)}
-.tag-curva{width:58rem;aspect-ratio:6.557}
-.hero .logo{width:82rem;margin-top:1.8rem}
-.tag-vegan{width:52rem;aspect-ratio:22.529;margin-top:3.4rem}
+.tag-curva{width:58rem;height:calc(58rem / 6.557)}
+.hero .logo{width:82rem;height:calc(82rem / 3.171);margin-top:1.8rem}
+.tag-vegan{width:52rem;height:calc(52rem / 22.529);margin-top:3.4rem}
 .inicio-cta{flex:1;position:relative;background:var(--verde);color:var(--blanco);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 7rem;overflow:hidden}
 .inicio-cta .eyebrow{color:var(--lima)}
 .inicio-cta h1{font-weight:800;font-size:8.4rem;line-height:1.08;letter-spacing:-.01em;margin-top:2.6rem}
@@ -200,9 +201,10 @@ svg{display:block;overflow:visible}
 .fb{padding:1.8rem 4rem;border-radius:99rem;letter-spacing:.06em;font-size:3.9rem;animation:aparece .3s ease both}
 .fb-ok{background:var(--lima);color:var(--verde)}
 .fb-no{background:var(--blanco);color:var(--verde)}
-.beans{display:flex;gap:2.2rem;--g:var(--verde);--l:var(--lima)}
+.beans{display:flex;--g:var(--verde);--l:var(--lima)}
 body[data-bg="verde"] .beans{--g:var(--beige)}
-.bean{width:4.6rem;aspect-ratio:59.73/82.86;opacity:.28;transition:opacity .3s}
+.bean{width:4.6rem;height:calc(4.6rem * 82.86 / 59.73);opacity:.28;transition:opacity .3s}
+.bean+.bean{margin-left:2.2rem}
 .bean.done{opacity:1}
 .bean.cur{opacity:1;animation:titila 1.2s ease-in-out infinite}
 @keyframes titila{50%{opacity:.35}}
@@ -210,13 +212,14 @@ body[data-bg="verde"] .beans{--g:var(--beige)}
 /* Partnership (manual, pág. 22): logo División Café + "x" + logo de la otra marca, en fila,
    separados por el "área de x" (ancho de una letra del logo). Cada marca con su color. */
 .q-x{flex:none;width:4.3rem;text-align:center;font-weight:800;font-size:3rem;line-height:1;color:var(--xc,#000)}
-.q-logo{flex:none;height:16.5rem;aspect-ratio:1424/828;background:var(--c,#000);
+.q-logo{flex:none;height:16.5rem;width:calc(16.5rem * 1424 / 828);background:var(--c,#000);
   -webkit-mask:var(--img) center/contain no-repeat;mask:var(--img) center/contain no-repeat}
 .q-x[hidden],.q-logo[hidden]{display:none}
 #q-text{font-weight:800;font-size:7.8rem;line-height:1.1;letter-spacing:-.01em}
-.ops{display:flex;flex-direction:column;gap:3.6rem;margin-top:5rem}
+.ops{display:flex;flex-direction:column;margin-top:5rem}
+.op+.op{margin-top:3.6rem}
 .op{appearance:none;-webkit-appearance:none;border:0;font:inherit;color:var(--verde);background:var(--blanco);
-  display:flex;align-items:center;gap:4rem;height:19.5rem;padding:0 6rem 0 3.6rem;border-radius:99rem;text-align:left;cursor:pointer;
+  display:flex;align-items:center;height:19.5rem;padding:0 6rem 0 3.6rem;border-radius:99rem;text-align:left;cursor:pointer;
   transition:background-color .2s ease,opacity .3s ease;animation:aparece .45s ease both}
 .op:active{background:var(--beige)}
 .op-l{width:12.4rem;height:12.4rem;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--rosa);color:var(--verde);font-weight:800;font-size:6rem;transition:background-color .25s}
@@ -224,7 +227,7 @@ body[data-bg="verde"] .beans{--g:var(--beige)}
 .op:nth-child(3) .op-l{background:var(--lima)}
 .op-l>*{grid-area:1/1;transition:opacity .2s ease}
 .op-l svg{width:6.6rem;height:6.6rem;opacity:0;color:var(--blanco)}
-.op-t{font-weight:700;font-size:4.8rem;line-height:1.16;max-height:14rem;overflow:hidden}
+.op-t{margin-left:4rem;font-weight:700;font-size:4.8rem;line-height:1.16;max-height:14rem;overflow:hidden}
 .op.ok{background:var(--lima);animation:okflash .8s ease-out}
 .op.ok .op-l,.op.bad .op-l{background:var(--verde)}
 .op.ok .op-l b,.op.bad .op-l b{opacity:0}
@@ -233,7 +236,7 @@ body[data-bg="verde"] .beans{--g:var(--beige)}
 .op.dim{opacity:.4}
 @keyframes okflash{0%{box-shadow:0 0 0 1.6rem rgba(159,228,117,0)}25%{box-shadow:0 0 0 1.6rem rgba(159,228,117,.55)}100%{box-shadow:0 0 0 1.6rem rgba(159,228,117,0)}}
 .q-foot{flex:none;display:flex;justify-content:center;align-items:center;padding:0 0 8rem}
-.q-foot .logo{width:30rem}
+.q-foot .logo{width:30rem;height:calc(30rem / 3.171)}
 .enter .q-top,.enter .q-box{animation:aparece .45s ease both}
 
 /* ---------- Resultado ---------- */
@@ -254,13 +257,14 @@ body[data-bg="verde"] .beans{--g:var(--beige)}
 .pouch-2{right:4rem}
 .r-art.mini .pouch{display:block}
 .r-art.none .tote{display:none}
-.r-icons{display:none;gap:3rem;align-items:flex-end}
+.r-icons{display:none;align-items:flex-end}
+.r-icons>*+*{margin-left:3rem}
 .r-art.none .r-icons{display:flex}
 .r-icons svg{width:18rem;height:18rem}
 .r-icons svg:nth-child(2){width:23rem;height:23rem}
 body[data-bg="verde"] .r-icons{--g:var(--lima);--b:var(--blanco)}
 /* destellos de ilustraciones alrededor del premio: aparecen y desaparecen, no se mueven */
-.twinkles{position:absolute;inset:0;pointer-events:none;
+.twinkles{position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none;
   --g:var(--verde);--p:var(--rosa);--y:var(--amarillo);--l:var(--lima);--b:var(--blanco)}
 body[data-bg="rosa"] .twinkles{--p:var(--blanco)}
 body[data-bg="amarillo"] .twinkles{--y:var(--blanco)}
@@ -278,7 +282,8 @@ body[data-bg="amarillo"] .twinkles{--y:var(--blanco)}
 .reg-wrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 7rem;min-height:0}
 .reg-eyebrow{color:var(--lima)}
 .reg-h{font-weight:800;font-size:6.6rem;line-height:1.05;margin-top:1.4rem}
-.campos{display:flex;flex-direction:column;gap:2.4rem;margin-top:4rem}
+.campos{display:flex;flex-direction:column;margin-top:4rem}
+.campo+.campo{margin-top:2.4rem}
 .campo{cursor:pointer}
 .campo-l{display:block;font-weight:700;font-size:2.8rem;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin:0 0 1rem 3.4rem}
 .campo-v{height:10.5rem;border-radius:99rem;background:var(--blanco);color:var(--verde);display:flex;align-items:center;padding:0 4.4rem;font-weight:700;font-size:4.4rem;overflow:hidden;transition:box-shadow .2s ease}
@@ -293,8 +298,10 @@ body[data-bg="amarillo"] .twinkles{--y:var(--blanco)}
 .reg-go.off{opacity:.45}
 .reg-go:active{background:var(--beige)}
 /* teclado propio */
-.kb{flex:none;display:flex;flex-direction:column;gap:1.2rem;padding:2.2rem 1.5rem 3.2rem;background:rgba(0,0,0,.2)}
-.kb-row{display:flex;gap:1rem}
+.kb{flex:none;display:flex;flex-direction:column;padding:2.2rem 1.5rem 3.2rem;background:rgba(0,0,0,.2)}
+.kb-row{display:flex}
+.kb-row+.kb-row{margin-top:1.2rem}
+.k+.k{margin-left:1rem}
 .k{appearance:none;-webkit-appearance:none;border:0;font:inherit;flex:1 1 0;min-width:0;height:9.6rem;padding:0 .4rem;border-radius:2.2rem;background:rgba(242,233,189,.15);color:var(--blanco);font-weight:700;font-size:4.2rem;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;overflow:hidden;white-space:nowrap;transition:background-color .1s,opacity .2s}
 .k:active{background:rgba(242,233,189,.45)}
 .k.sm{font-size:2.6rem;text-transform:none;letter-spacing:-.01em;padding:0 1.2rem}
@@ -311,16 +318,19 @@ body[data-bg="amarillo"] .twinkles{--y:var(--blanco)}
 .kb:not([data-f="email"]) .k.mail,.kb[data-f="email"] .k.sp{opacity:.3}
 
 /* ---------- Panel de configuración ---------- */
-.panel{position:absolute;inset:0;z-index:40;background:var(--verde);color:var(--blanco);display:flex;flex-direction:column;gap:2.2rem;padding:5rem 7rem}
+.panel{position:absolute;top:0;right:0;bottom:0;left:0;z-index:40;background:var(--verde);color:var(--blanco);display:flex;flex-direction:column;padding:5rem 7rem}
 .panel[hidden]{display:none}
+.panel>*+*{margin-top:2.2rem}
 .p-head{display:flex;justify-content:space-between;align-items:center}
 .p-head h2{font-weight:800;font-size:6.4rem}
-.p-x{appearance:none;border:0;font:inherit;display:flex;align-items:center;gap:1.6rem;background:var(--rosa);color:var(--verde);font-weight:800;font-size:3.4rem;letter-spacing:.06em;text-transform:uppercase;padding:2.6rem 4rem;border-radius:99rem;cursor:pointer}
-.p-x svg{width:4rem;height:4rem}
-.p-sec{background:rgba(242,233,189,.08);border-radius:4rem;padding:3rem 4rem;display:flex;flex-direction:column;gap:2.2rem}
+.p-x{appearance:none;border:0;font:inherit;display:flex;align-items:center;background:var(--rosa);color:var(--verde);font-weight:800;font-size:3.4rem;letter-spacing:.06em;text-transform:uppercase;padding:2.6rem 4rem;border-radius:99rem;cursor:pointer}
+.p-x svg{width:4rem;height:4rem;margin-left:1.6rem}
+.p-sec{background:rgba(242,233,189,.08);border-radius:4rem;padding:3rem 4rem;display:flex;flex-direction:column}
+.p-sec>*+*{margin-top:2.2rem}
 .p-sec h3{font-weight:800;font-size:3.2rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lima)}
-.p-row{display:flex;align-items:center;justify-content:space-between;gap:3rem;font-weight:600;font-size:3.8rem}
+.p-row{display:flex;align-items:center;justify-content:space-between;font-weight:600;font-size:3.8rem}
 .p-row[hidden]{display:none}
+.p-row>*+*{margin-left:3rem}
 .p-row b{font-weight:800}
 .p-row small{display:block;font-size:2.8rem;opacity:.7;font-weight:500;margin-top:.6rem}
 .sw{appearance:none;border:0;flex:none;width:19rem;height:9.6rem;border-radius:99rem;background:rgba(242,233,189,.25);position:relative;cursor:pointer}
@@ -331,20 +341,26 @@ body[data-bg="amarillo"] .twinkles{--y:var(--blanco)}
 .seg button{appearance:none;border:0;font:inherit;font-weight:700;font-size:3rem;color:var(--blanco);background:transparent;padding:2.2rem 3.4rem;border-radius:99rem;cursor:pointer}
 .seg button.on{background:var(--rosa);color:var(--verde)}
 .seg.off{opacity:.35;pointer-events:none}
-.step{display:flex;align-items:center;gap:2rem;flex:none}
+.step{display:flex;align-items:center;flex:none}
+.step>*+*{margin-left:2rem}
 .step button{appearance:none;width:9.6rem;height:9.6rem;border-radius:50%;border:0;background:var(--rosa);color:var(--verde);font:inherit;font-weight:800;font-size:5.6rem;line-height:1;cursor:pointer}
 .step button:disabled{opacity:.3;cursor:default}
 .step output{min-width:7rem;text-align:center;font-weight:800;font-size:6rem}
 .p-link{appearance:none;align-self:flex-start;border:0;background:none;font:inherit;color:var(--lima);font-weight:700;font-size:3.2rem;text-decoration:underline;cursor:pointer;padding:.6rem 0}
 .p-stats{font-weight:700;font-size:3.3rem}
+.p-guarda{font-weight:700;font-size:3rem;line-height:1.3;color:var(--verde);background:var(--rosa);border-radius:2.4rem;padding:2rem 3rem}
+.p-guarda[hidden]{display:none}
 #p-cada button{min-width:9rem;padding:2rem 2rem}
-.p-ult{list-style:none;display:flex;flex-direction:column;gap:.8rem;font-size:2.7rem;opacity:.85}
+.p-ult{list-style:none;display:flex;flex-direction:column;font-size:2.7rem;opacity:.85}
+.p-ult li+li{margin-top:.8rem}
 .p-ult li{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.p-btns{display:flex;gap:2rem}
+.p-btns{display:flex}
+.p-btns>*+*{margin-left:2rem}
 .p-btn{appearance:none;flex:1 1 0;border:0;font:inherit;font-weight:800;font-size:3.3rem;padding:3.4rem 2rem;border-radius:99rem;background:var(--lima);color:var(--verde);cursor:pointer}
 .p-btn.danger{background:transparent;color:var(--rosa);box-shadow:inset 0 0 0 .5rem var(--rosa)}
 .p-btn.confirm{background:var(--rosa);color:var(--verde)}
 .p-btn[hidden]{display:none}
+#p-premios>*+*{margin-top:2.6rem}
 .p-nota{min-height:3.6rem;font-size:3rem;font-weight:600;color:var(--lima)}
 
 /* ---------- Aviso de configuración ---------- */
@@ -352,7 +368,7 @@ body[data-bg="amarillo"] .twinkles{--y:var(--blanco)}
 #cfg-error>*+*,.aviso-compat>*+*{margin-top:3vw}
 .aviso-compat h2{color:#ff66da;font-size:6.4vw;font-weight:800}
 .aviso-compat small{font-size:3vw;opacity:.7;word-break:break-all}
-.aviso-compat ol{padding-left:6vw}.aviso-compat li+li{margin-top:1.5vw}.aviso-compat b{color:#9fe475;overflow-wrap:anywhere}
+.aviso-compat ol{padding-left:6vw}.aviso-compat li+li{margin-top:1.5vw}.aviso-compat b{color:#9fe475;word-break:break-all;overflow-wrap:anywhere}
 .aviso-compat[hidden]{display:none}
 #cfg-error[hidden]{display:none}
 #cfg-error h2{color:var(--rosa);font-size:6.4vw;font-weight:800}
@@ -488,12 +504,13 @@ body[data-bg="amarillo"] .twinkles{--y:var(--blanco)}
     </section>
     <section class="p-sec">
       <h3>Premios</h3>
-      <div id="p-premios" style="display:flex;flex-direction:column;gap:2.6rem"></div>
+      <div id="p-premios" style="display:flex;flex-direction:column"></div>
       <button class="p-link" id="p-reset" type="button">Restablecer todos los ajustes</button>
     </section>
     <section class="p-sec">
       <h3>Registros</h3>
       <p class="p-stats" id="p-stats"></p>
+      <p class="p-guarda" id="p-guarda" hidden>¡Ojo! Así abierto, este navegador NO guarda los registros. Abrí el archivo en Chrome desde file:///sdcard/Download/</p>
       <div class="p-row" id="p-row-resp"><span><b>Respaldo automático</b><small id="p-resp-info"></small></span><button class="sw" id="p-resp" type="button" aria-label="Respaldo automático encendido o apagado"></button></div>
       <div class="p-row" id="p-row-cada"><span>Cada cuántos participantes</span><div class="seg" id="p-cada"><button type="button" data-n="5">5</button><button type="button" data-n="10">10</button><button type="button" data-n="20">20</button><button type="button" data-n="50">50</button></div></div>
       <ul class="p-ult" id="p-ult"></ul>
@@ -585,7 +602,7 @@ body[data-bg="amarillo"] .twinkles{--y:var(--blanco)}
     tecladoPropio: C.tecladoPropio !== false,
     respaldo: C.respaldoAutomatico === true,
     respaldoCada: Math.max(1, Math.round(+C.respaldoCada) || 10),
-    minimos: Object.fromEntries(C.premios.map((p) => [p.titulo, p.minimo])),
+    minimos: C.premios.reduce((o, p) => { o[p.titulo] = p.minimo; return o; }, {}),
   });
   let A = ajustesBase();
   (() => {
@@ -594,9 +611,11 @@ body[data-bg="amarillo"] .twinkles{--y:var(--blanco)}
     Object.keys(A.minimos).forEach((t) => { A.minimos[t] = Math.min(N, Math.max(1, Math.round(+A.minimos[t]) || 1)); });
   })();
   const guardarAjustes = () => lsSet(KEY_AJ, A);
-  const premiosActivos = () => C.premios.map((p) => ({ ...p, minimo: A.minimos[p.titulo] ?? p.minimo }))
+  const premiosActivos = () => C.premios.map((p) => ({ ...p, minimo: A.minimos[p.titulo] != null ? A.minimos[p.titulo] : p.minimo }))
     .sort((a, b) => b.minimo - a.minimo);
 
+  // ¿este navegador guarda? (abierto desde algunos administradores de archivos no puede)
+  const guardaOK = (() => { try { localStorage.setItem('dc-trivia-prueba', '1'); const ok = localStorage.getItem('dc-trivia-prueba') === '1'; localStorage.removeItem('dc-trivia-prueba'); return ok; } catch (e) { return false; } })();
   let REGS = lsGet(KEY_REG);
   if (!Array.isArray(REGS)) REGS = [];
   let idb = null;
@@ -994,7 +1013,7 @@ body[data-bg="amarillo"] .twinkles{--y:var(--blanco)}
   /* ----- Panel de configuración ----- */
   function csv() {
     const celda = (v) => {
-      let x = String(v ?? '');
+      let x = v == null ? '' : String(v);
       if (/^[=+\-@]/.test(x)) x = "'" + x; // evita fórmulas al abrir en Excel
       return /[;"\r\n]/.test(x) ? `"${x.replace(/"/g, '""')}"` : x;
     };
@@ -1003,7 +1022,7 @@ body[data-bg="amarillo"] .twinkles{--y:var(--blanco)}
       const m = r.email.toLowerCase();
       const rep = vistos.has(m) ? 'Sí' : 'No';
       vistos.add(m);
-      return [r.fecha, r.nombre, r.apellido, r.email, r.puntaje ?? '', r.total, r.premio, r.estado, rep];
+      return [r.fecha, r.nombre, r.apellido, r.email, r.puntaje == null ? '' : r.puntaje, r.total, r.premio, r.estado, rep];
     });
     return '﻿' + [['Fecha', 'Nombre', 'Apellido', 'Email', 'Correctas', 'Preguntas', 'Premio', 'Estado', 'Mail repetido'], ...filas]
       .map((f) => f.map(celda).join(';')).join('\r\n') + '\r\n';
@@ -1075,6 +1094,7 @@ body[data-bg="amarillo"] .twinkles{--y:var(--blanco)}
     const term = REGS.filter((r) => r.estado === 'terminó').length;
     const gan = REGS.filter((r) => r.premio).length;
     $('#p-stats').textContent = `${REGS.length} registro${REGS.length === 1 ? '' : 's'} · ${term} terminaron · ${gan} con premio`;
+    $('#p-guarda').hidden = guardaOK;
     $('#p-ult').innerHTML = REGS.slice(-5).reverse().map((r) =>
       `<li>${esc(r.nombre)} ${esc(r.apellido)} · ${esc(r.email)} · ${r.puntaje == null ? esc(r.estado) : `${r.puntaje}/${r.total}`}${r.premio ? ' · ' + esc(r.premio) : ''}</li>`)
       .join('') || '<li>Todavía no hay registros.</li>';
