@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Diagnóstico tótem</title>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#0f3d2e;color:#fff;font-family:sans-serif}
+#info{position:absolute;left:0;top:0;right:0;padding:4vw;font-size:4.2vw;line-height:1.35;z-index:2}
+#info h1{font-size:7vw;margin:0 0 2vw}
+#info b{color:#9fe475}
+.no{color:#ff8a80!important}
+#caja{position:absolute;left:0;top:0;width:1000px;height:1778px;box-sizing:border-box;border:20px solid #f6c344;transform-origin:0 0;z-index:1}
+#caja span{position:absolute;left:0;right:0;bottom:60px;text-align:center;font-size:60px;font-weight:bold;color:#f6c344}
+#letra{font-size:10px;line-height:1;position:absolute;visibility:hidden}
+</style>
+</head>
+<body>
+<div id="caja"><span>Recuadro amarillo: tiene que verse ENTERO</span></div>
+<div id="info">
+  <h1>Diagnóstico tótem</h1>
+  JavaScript: <b id="js" class="no">NO FUNCIONA</b><br>
+  <span id="datos">Si dice NO FUNCIONA, este navegador o app tiene el JavaScript apagado y la trivia no puede andar acá.</span>
+</div>
+<span id="letra">Mmm</span>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var js = $('js'); js.textContent = 'SÍ'; js.className = '';
+  var ua = navigator.userAgent;
+  var m = ua.match(/Chrome\/(\d+)/);
+  var esWV = /; wv\)/.test(ua) || /Version\/\d/.test(ua);
+  function txt(ok, bien, mal) { return '<b' + (ok ? '' : ' class="no"') + '>' + (ok ? bien : mal) + '</b>'; }
+  function datos() {
+    var W = document.documentElement.clientWidth, H = window.innerHeight;
+    var caja = $('caja'); var k = Math.min(W / 1000, H / 1778);
+    caja.style.transform = 'translate(' + Math.max(0, (W - 1000 * k) / 2) + 'px,0) scale(' + k + ')';
+    var letra = $('letra').getBoundingClientRect().height;
+    var vv = window.visualViewport;
+    var v = m ? +m[1] : 0;
+    $('datos').innerHTML =
+      'Archivo: <b>' + decodeURIComponent(location.href.split('/').pop()) + '</b><br>' +
+      'Chrome: ' + txt(v >= 88, v + ' (sirve)', (v || '?') + ' (VIEJO, necesita 88 o más)') + (esWV ? ' · <b>dentro de una app</b>' : '') + '<br>' +
+      'Pantalla (CSS): <b>' + W + ' × ' + H + '</b> · densidad <b>' + (window.devicePixelRatio || 1) + '</b><br>' +
+      'Pantalla física: <b>' + Math.round(screen.width * (window.devicePixelRatio || 1)) + ' × ' + Math.round(screen.height * (window.devicePixelRatio || 1)) + '</b><br>' +
+      'Zoom de página: ' + txt(!vv || Math.abs(vv.scale - 1) < 0.01, vv ? vv.scale.toFixed(2) : 's/d', vv.scale.toFixed(2) + ' (ESTÁ CON ZOOM)') + '<br>' +
+      'Letra de 10px mide: ' + txt(letra < 13, letra.toFixed(1) + 'px', letra.toFixed(1) + 'px (LETRA AGRANDADA)') + '<br>' +
+      'Escala del recuadro: <b>' + k.toFixed(3) + '</b><br>' +
+      '<span style="font-size:3vw;opacity:.7">' + ua + '</span>';
+  }
+  datos();
+  addEventListener('resize', datos);
+  setTimeout(datos, 800);
+})();
+</script>
+</body>
+</html>
